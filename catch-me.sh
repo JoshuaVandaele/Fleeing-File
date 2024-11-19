@@ -83,9 +83,12 @@ main() {
         move_down $down_steps
     done
 
-    debug "Would have moved to $(pwd)" && cd "$cur_dir" && exit 0
+    debug "Would have moved to $(pwd)"
+    if [ $DEBUG -eq 1 ]; then
+        exit 0
+    fi
 
-    mv "$bash_file" "$(pwd)/$(basename $bash_file)"
+    mv "$bash_file" "$(pwd)"
 
     cd "$cur_dir"
 }

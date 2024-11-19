@@ -13,9 +13,11 @@ This is a fun and silly Bash script that randomly moves around the directory str
 2. Add this to your `.bashrc`:
 
    ```sh
-   if [ -f ./catch-me.sh ]; then
-       ./catch-me.sh
-   fi
+   function cd_and_catch() {
+       cd "$@"
+       ./catch-me.sh & 2>/dev/null
+   }
+   alias cd='cd_and_catch'
    ```
 
 3. Run the script for the first time:
