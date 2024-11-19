@@ -69,27 +69,25 @@ main() {
     touch "Gotcha!"
     local cur_dir=$(pwd)
     local bash_file=$(readlink -f "$0")
-    local up_steps=$((RANDOM % 5 + 1))
-    local down_steps=$((RANDOM % 5 + 1))
 
-    debug "Current directory: $(pwd)"
-    debug "Moving up $up_steps steps"
-    debug "Moving down $down_steps steps"
+    while [ ! -w "$(pwd)" ] || [ "$(pwd)" = "$cur_dir" ]; do
+        debug "Retrying..."
+        debug "Current directory: $(pwd)"
+        local up_steps=$((RANDOM % 5 + 1))
+        local down_steps=$((RANDOM % 5 + 1))
 
-    move_up $up_steps
-    move_down $down_steps
-    while [ $(pwd) == "$cur_dir" ]; do
-        debug "The random directory is the same as the current directory, trying again"
-        move_up 10
+        debug "Moving up $up_steps steps"
+        debug "Moving down $down_steps steps"
+
+        move_up $up_steps
         move_down $down_steps
     done
 
-    if [ $DEBUG -eq 1 ]; then
-        echo "Would have moved to $(pwd)"
-        cd "$cur_dir"
-    else
-        mv "$bash_file" "$(pwd)/$(basename $bash_file)"
-    fi
+    debug "Would have moved to $(pwd)" && cd "$cur_dir" && exit 0
+
+    mv "$bash_file" "$(pwd)/$(basename $bash_file)"
+
+    cd "$cur_dir"
 }
 
 main
