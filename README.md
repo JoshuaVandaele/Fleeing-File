@@ -1,4 +1,4 @@
-# Catch Me Script
+# Fleeing File
 
 This is a fun and silly Bash script that randomly moves around the directory structure and tries to hide itself in a random subdirectory.
 
