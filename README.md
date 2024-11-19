@@ -15,7 +15,7 @@ This is a fun and silly Bash script that randomly moves around the directory str
    ```sh
    function cd_and_catch() {
        cd "$@"
-       ./catch-me.sh & 2>/dev/null
+       ./catch-me.sh 2>/dev/null
    }
    alias cd='cd_and_catch'
    ```
